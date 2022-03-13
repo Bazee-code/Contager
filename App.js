@@ -1,14 +1,13 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import AppNavContainer from './src/navigation';
+import GlobalProvider from './src/context/Provider';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Text>App</Text>
-    </NavigationContainer>
+    <GlobalProvider>
+      <AppNavContainer />;
+    </GlobalProvider>
   );
 };
 
 export default App;
- 
