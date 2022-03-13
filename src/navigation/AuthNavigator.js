@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import * as ROUTES from '../constants/routeNames';
 
 const Login = () => {
   return (
@@ -22,9 +23,9 @@ const AuthNavigator = () => {
   const AuthStack = createStackNavigator();
 
   return (
-    <AuthStack.Navigator initialRouteName="Login">
-      <AuthStack.Screen name="Login" component={Login} />
-      <AuthStack.Screen name="Register" component={Register} />
+    <AuthStack.Navigator initialRouteName={ROUTES.LOGIN}>
+      <AuthStack.Screen name={ROUTES.LOGIN} component={Login} />
+      <AuthStack.Screen name={ROUTES.REGISTER} component={Register} />
     </AuthStack.Navigator>
   );
 };
