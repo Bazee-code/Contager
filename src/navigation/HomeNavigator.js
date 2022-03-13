@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import * as ROUTES from '../constants/routeNames';
 
 const Contacts = () => {
   return (
@@ -38,11 +39,17 @@ const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
 
   return (
-    <HomeStack.Navigator initialRouteName="Contacts">
-      <HomeStack.Screen name="Contact" component={Contacts} />
-      <HomeStack.Screen name="Contact Detail" component={ContactDetail} />
-      <HomeStack.Screen name="CreateContact" component={CreateContact} />
-      <HomeStack.Screen name="Settings" component={Settings} />
+    <HomeStack.Navigator initialRouteName={ROUTES.CONTACT_LIST}>
+      <HomeStack.Screen name={ROUTES.CONTACT_LIST} component={Contacts} />
+      <HomeStack.Screen
+        name={ROUTES.CONTACT_DETAIL}
+        component={ContactDetail}
+      />
+      <HomeStack.Screen
+        name={ROUTES.CREATE_CONTACT}
+        component={CreateContact}
+      />
+      <HomeStack.Screen name={ROUTES.SETTINGS} component={Settings} />
     </HomeStack.Navigator>
   );
 };
