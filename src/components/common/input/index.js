@@ -5,9 +5,9 @@ import styles from './styles';
 
 const Input = ({onChangeText, style, value, label, icon}) => {
   return (
-    <View>
+    <View style={styles.inputContainer}>
       {label && <Text>{label}</Text>}
-      <View>
+      <View style={styles.wrapper}>
         <View>{icon && icon}</View>
         <TextInput
           style={[styles.textInput, style]}
