@@ -7,13 +7,18 @@ export default StyleSheet.create({
   },
   wrapper: {
     height: 42,
-    borderColor: colors.grey,
     borderWidth: 1,
     borderRadius: 4,
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 5,
   },
   textInput: {
     flex: 1,
+  },
+  error: {
+    color: colors.danger,
+    paddingTop: 5,
+    fontSize: 12,
   },
 });
