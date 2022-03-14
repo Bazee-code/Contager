@@ -12,6 +12,7 @@ const Input = ({
   icon,
   iconPosition,
   error,
+  ...props
 }) => {
   const [focused, setFocused] = useState(false);
   const [blur, setBlur] = useState(false);
@@ -45,6 +46,7 @@ const Input = ({
           styles.wrapper,
           {flexDirection: getFlexDirection()},
           {borderColor: getBorderColor()},
+          {alignItems: icon ? 'center' : 'baseline'},
         ]}>
         <View>{icon && icon}</View>
         <TextInput
@@ -53,6 +55,7 @@ const Input = ({
           value={value}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          {...props}
         />
       </View>
       {error && <Text style={styles.error}>{error}</Text>}
