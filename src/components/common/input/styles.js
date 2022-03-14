@@ -10,11 +10,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     flexDirection: 'row',
-    alignItems: 'center',
     marginTop: 5,
   },
   textInput: {
     flex: 1,
+    width: '100%',
   },
   error: {
     color: colors.danger,
