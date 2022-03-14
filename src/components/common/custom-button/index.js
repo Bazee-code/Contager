@@ -1,37 +1,49 @@
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 
-import styles from '../input/styles';
+import styles from './styles';
 import colors from '../../../assets/theme/colors';
+import {color} from 'react-native-reanimated';
 
-const CustomButton = ({title, disabled, loading, ...props}) => {
+const CustomButton = ({
+  title,
+  secondary,
+  primary,
+  danger,
+  disabled,
+  loading,
+  ...props
+}) => {
   const [focused, setFocused] = useState(false);
   const [blur, setBlur] = useState(false);
 
-  const getFlexDirection = () => {
-    if (icon && iconPosition) {
-      if (iconPosition === 'left') {
-        return 'row';
-      } else if (iconPosition === 'right') {
-        return 'row-reverse';
-      }
-    }
-  };
-
   const getBorderColor = () => {
-    if (focused) {
+    if (disabled) {
+      return colors.grey;
+    }
+    if (primary) {
       return colors.primary;
     }
-    if (error) {
+    if (danger) {
       return colors.danger;
-    } else {
-      return colors.grey;
+    }
+    if (secondary) {
+      return colors.secondary;
     }
   };
 
   return (
-    <TouchableOpacity style={styles.inputContainer}>
-      {title && <Text>{title}</Text>}
+    <TouchableOpacity
+      style={[
+        styles.wrapper,
+        {
+          backgroundColor: getBorderColor(),
+        },
+      ]}
+      {...props}>
+      {title && (
+        <Text style={{color: disabled ? '#000' : color.white}}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
