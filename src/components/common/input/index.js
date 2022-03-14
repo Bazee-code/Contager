@@ -3,14 +3,18 @@ import React from 'react';
 
 import styles from './styles';
 
-const Input = ({onChangeText, style, value}) => {
+const Input = ({onChangeText, style, value, label, icon}) => {
   return (
     <View>
-      <TextInput
-        style={[styles.textInput, style]}
-        onChangeText={onChangeText}
-        value={value}
-      />
+      {label && <Text>{label}</Text>}
+      <View>
+        <View>{icon && icon}</View>
+        <TextInput
+          style={[styles.textInput, style]}
+          onChangeText={onChangeText}
+          value={value}
+        />
+      </View>
     </View>
   );
 };
