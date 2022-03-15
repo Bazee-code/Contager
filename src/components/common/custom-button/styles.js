@@ -23,4 +23,7 @@ export default StyleSheet.create({
     paddingTop: 5,
     fontSize: 12,
   },
+  loaderSection: {
+    flexDirection: 'row',
+  },
 });
