@@ -16,4 +16,18 @@ export default StyleSheet.create({
     color: 'grey',
   },
   formSection: {},
+  infoSection: {
+    flexDirection: 'row',
+    paddingTop: 10,
+  },
+  infoText: {
+    fontSize: 15,
+    fontWeight: '600',
+    paddingRight: 10,
+  },
+  infoLink: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.primary,
+  },
 });
