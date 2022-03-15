@@ -6,7 +6,7 @@ import CustomButton from '../../../components/common/custom-button';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 
-const RegisterForm = () => {
+const RegisterForm = ({form, errors, onChange, onSubmit}) => {
   const [value, onChangeText] = useState('');
   const navigate = useNavigation();
 
@@ -17,7 +17,6 @@ const RegisterForm = () => {
   return (
     <ScrollView>
       <Container>
-        {/* <Image /> */}
         <View style={styles.loginHeaderSection}>
           <Image
             source={require('../../../assets/images/homeicon2.jpg')}
@@ -30,50 +29,56 @@ const RegisterForm = () => {
           <Input
             label="Username"
             placeholder="Enter Username"
-            // onChangeText={onChangeText}
-            // value={value}
+            onChangeText={value => {
+              onChange({name: 'userName', value});
+            }}
             iconPosition="right"
-            // error={'This field is required'}
+            error={errors.userName}
           />
 
           <Input
             label="First name"
             placeholder="Enter First name"
-            // onChangeText={onChangeText}
-            // value={value}
+            onChangeText={value => {
+              onChange({name: 'firstName', value});
+            }}
             iconPosition="right"
-            // error={'This field is required'}
+            error={errors.firstName}
           />
 
           <Input
             label="Last name"
             placeholder="Enter Last name"
-            // onChangeText={onChangeText}
-            // value={value}
+            onChangeText={value => {
+              onChange({name: 'lastName', value});
+            }}
             iconPosition="right"
-            // error={'This field is required'}
+            error={errors.lastName}
           />
 
           <Input
             label="Email"
             placeholder="Enter Email"
-            // onChangeText={onChangeText}
-            // value={value}
+            onChangeText={value => {
+              onChange({name: 'email', value});
+            }}
             iconPosition="right"
-            // error={'This field is required'}
+            error={errors.email}
           />
 
           <Input
             label="Password"
             placeholder="Enter Password"
             secureTextEntry={true}
-            // onChangeText={onChangeText}
-            // value={value}
+            onChangeText={value => {
+              onChange({name: 'password', value});
+            }}
             icon={<Text>HIDE</Text>}
             iconPosition="right"
+            error={errors.password}
           />
 
-          <CustomButton title="Create Account" loading disabled primary />
+          <CustomButton title="Create Account" primary onPress={onSubmit} />
         </View>
         <View style={styles.infoSection}>
           <Text style={styles.infoText}>Already have an account?</Text>
