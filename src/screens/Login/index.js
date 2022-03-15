@@ -10,8 +10,17 @@ const Login = () => {
   };
 
   const onSubmit = () => {
-    // validation
-    console.log('form=>', form);
+    if (!form.userName) {
+      setErrors(prev => {
+        return {...prev, userName: 'User name is required'};
+      });
+    }
+
+    if (!form.password) {
+      setErrors(prev => {
+        return {...prev, password: 'Password is required'};
+      });
+    }
   };
 
   return (
