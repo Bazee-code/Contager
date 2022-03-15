@@ -7,46 +7,52 @@ import styles from './styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 
-const LoginForm = () => {
-  const [value, onChangeText] = useState('');
+const LoginForm = ({form, errors, onChange, onSubmit}) => {
   const navigate = useNavigation();
 
-  const handleRegsiter = () => {
+  const handleRegister = () => {
     navigate.navigate('Register');
   };
 
   return (
     <Container>
-      {/* <Image /> */}
       <View style={styles.loginHeaderSection}>
-        <Text style={styles.loginHeaderImage}>Logo here</Text>
+        <Image
+          source={require('../../../assets/images/homeicon2.jpg')}
+          style={styles.loginHeaderImage}
+        />
         <Text style={styles.loginHeaderTitle}>Welcome to Contager</Text>
         <Text style={styles.loginHeaderSubTitle}>Please login here</Text>
       </View>
       <View style={styles.formSection}>
         <Input
           label="Username"
-          // onChangeText={onChangeText}
-          // value={value}
+          placeholder="Enter Username"
+          onChangeText={value => {
+            onChange({name: 'userName', value});
+          }}
           iconPosition="right"
-          // error={'This field is required'}
+          error={errors.userName}
         />
 
         <Input
           label="Password"
+          placeholder="Enter password"
           secureTextEntry={true}
-          // onChangeText={onChangeText}
-          // value={value}
+          onChangeText={value => {
+            onChange({name: 'password', value});
+          }}
           icon={<Text>HIDE</Text>}
           iconPosition="right"
+          error={errors.password}
         />
 
-        <CustomButton title="Login" loading disabled primary />
+        <CustomButton title="Login" primary onPress={onSubmit} />
       </View>
-      <View>
-        <Text>Don't have an account?</Text>
-        <TouchableOpacity onPress={handleRegsiter}>
-          <Text>Register here</Text>
+      <View style={styles.infoSection}>
+        <Text style={styles.infoText}>Don't have an account?</Text>
+        <TouchableOpacity onPress={handleRegister}>
+          <Text style={styles.infoLink}>Register here</Text>
         </TouchableOpacity>
       </View>
     </Container>
