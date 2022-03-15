@@ -1,4 +1,4 @@
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useState} from 'react';
 
 import styles from './styles';
@@ -12,6 +12,7 @@ const CustomButton = ({
   danger,
   disabled,
   loading,
+  onPress,
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
@@ -34,6 +35,8 @@ const CustomButton = ({
 
   return (
     <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
       style={[
         styles.wrapper,
         {
@@ -41,9 +44,18 @@ const CustomButton = ({
         },
       ]}
       {...props}>
-      {title && (
-        <Text style={{color: disabled ? '#000' : color.white}}>{title}</Text>
-      )}
+      <View style={styles.loaderSection}>
+        {title && (
+          <Text
+            style={{
+              color: disabled ? '#000' : color.white,
+              paddingRight: loading ? 10 : 0,
+            }}>
+            {title}
+          </Text>
+        )}
+        {loading && <ActivityIndicator />}
+      </View>
     </TouchableOpacity>
   );
 };
