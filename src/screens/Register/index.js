@@ -1,10 +1,13 @@
 import {View, Text} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import RegisterForm from '../../components/forms/register';
+import axiosInstance from '../../helpers/axiosInterceptor';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+
+  // console.log('form', form);
 
   const onChange = ({value, name}) => {
     setForm({...form, [name]: value});
@@ -13,13 +16,17 @@ const Register = () => {
       if (name === 'password') {
         if (value.length < 6) {
           setErrors(prev => {
-            return {...prev, [name]: 'A minimum of 6 characters is required'};
+            return {...prev, [name]: 'This field needs min 6 characters'};
           });
         } else {
           setErrors(prev => {
             return {...prev, [name]: null};
           });
         }
+      } else {
+        setErrors(prev => {
+          return {...prev, [name]: null};
+        });
       }
     } else {
       setErrors(prev => {
@@ -54,6 +61,14 @@ const Register = () => {
       setErrors(prev => {
         return {...prev, email: 'Email is required'};
       });
+    }
+
+    if (
+      Object.values(form).length === 5 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      console.log('form submitted');
     }
   };
 
