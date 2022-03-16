@@ -13,12 +13,9 @@ const CustomButton = ({
   disabled,
   loading,
   onPress,
-  ...props
+  style,
 }) => {
-  const [focused, setFocused] = useState(false);
-  const [blur, setBlur] = useState(false);
-
-  const getBorderColor = () => {
+  const getBgColor = () => {
     if (disabled) {
       return colors.grey;
     }
@@ -37,24 +34,22 @@ const CustomButton = ({
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={[
-        styles.wrapper,
-        {
-          backgroundColor: getBorderColor(),
-        },
-      ]}
-      {...props}>
-      <View style={styles.loaderSection}>
+      style={[styles.wrapper, {backgroundColor: getBgColor()}, style]}>
+      <View style={[styles.loaderSection]}>
+        {loading && (
+          <ActivityIndicator
+            color={primary ? colors.secondary : colors.primary}
+          />
+        )}
         {title && (
           <Text
             style={{
-              color: disabled ? '#000' : color.white,
-              paddingRight: loading ? 10 : 0,
+              color: disabled ? 'black' : colors.white,
+              paddingLeft: loading ? 5 : 0,
             }}>
-            {title}
+            {loading ? 'Please wait...' : title}
           </Text>
         )}
-        {loading && <ActivityIndicator />}
       </View>
     </TouchableOpacity>
   );
