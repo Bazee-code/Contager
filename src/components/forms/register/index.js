@@ -6,9 +6,19 @@ import CustomButton from '../../../components/common/custom-button';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 
-const RegisterForm = ({form, errors, onChange, onSubmit}) => {
+const RegisterForm = ({
+  form,
+  errors,
+  onChange,
+  onSubmit,
+  loading,
+  data,
+  error,
+}) => {
   const [value, onChangeText] = useState('');
   const navigate = useNavigation();
+
+  console.log('error', error);
 
   const handleLogin = () => {
     navigate.navigate('Login');
@@ -25,6 +35,7 @@ const RegisterForm = ({form, errors, onChange, onSubmit}) => {
           <Text style={styles.loginHeaderTitle}>Welcome to Contager</Text>
           <Text style={styles.loginHeaderSubTitle}>Create a free account </Text>
         </View>
+        {error && <Text>{error.error}</Text>}
         <View style={styles.formSection}>
           <Input
             label="Username"
@@ -33,7 +44,7 @@ const RegisterForm = ({form, errors, onChange, onSubmit}) => {
               onChange({name: 'userName', value});
             }}
             iconPosition="right"
-            error={errors.userName}
+            error={errors.userName || error?.username?.[0]}
           />
 
           <Input
@@ -43,7 +54,7 @@ const RegisterForm = ({form, errors, onChange, onSubmit}) => {
               onChange({name: 'firstName', value});
             }}
             iconPosition="right"
-            error={errors.firstName}
+            error={errors.firstName || error?.first_name?.[0]}
           />
 
           <Input
@@ -53,7 +64,7 @@ const RegisterForm = ({form, errors, onChange, onSubmit}) => {
               onChange({name: 'lastName', value});
             }}
             iconPosition="right"
-            error={errors.lastName}
+            error={errors.lastName || error?.last_name?.[0]}
           />
 
           <Input
@@ -63,7 +74,7 @@ const RegisterForm = ({form, errors, onChange, onSubmit}) => {
               onChange({name: 'email', value});
             }}
             iconPosition="right"
-            error={errors.email}
+            error={errors.email || error?.email?.[0]}
           />
 
           <Input
@@ -73,12 +84,20 @@ const RegisterForm = ({form, errors, onChange, onSubmit}) => {
             onChangeText={value => {
               onChange({name: 'password', value});
             }}
-            icon={<Text>HIDE</Text>}
+            icon={
+              <Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>
+            }
             iconPosition="right"
-            error={errors.password}
+            error={errors.password || error?.password?.[0]}
           />
 
-          <CustomButton title="Create Account" primary onPress={onSubmit} />
+          <CustomButton
+            title="Create Account"
+            loading={loading}
+            disabled={loading}
+            primary
+            onPress={onSubmit}
+          />
         </View>
         <View style={styles.infoSection}>
           <Text style={styles.infoText}>Already have an account?</Text>
