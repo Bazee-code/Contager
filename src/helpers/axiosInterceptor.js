@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import env from '../config/env';
 
@@ -7,7 +8,6 @@ const axiosInstance = axios.create({
   baseURL: env.BACKEND_URL,
   headers,
 });
-console.log('url', axiosInstance.baseURL);
 
 axiosInstance.interceptors.request.use(
   async config => {
