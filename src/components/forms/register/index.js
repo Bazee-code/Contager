@@ -18,8 +18,6 @@ const RegisterForm = ({
   const [value, onChangeText] = useState('');
   const navigate = useNavigation();
 
-  console.log('error', error);
-
   const handleLogin = () => {
     navigate.navigate('Login');
   };
