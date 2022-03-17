@@ -1,18 +1,40 @@
 import {View, Text} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import RegisterForm from '../../components/forms/register';
-import axiosInstance from '../../helpers/axiosInterceptor';
-import register from '../../context/actions/auth-actions/register';
 import {GlobalContext} from '../../context/Provider';
+import registerAction, {
+  clearAuthStateAction,
+} from '../../context/actions/auth-actions/registerAction';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {LOGIN} from '../../constants/routeNames';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
+  const navigate = useNavigation();
+
   const {
     authDispatch,
     authState: {loading, error, data},
   } = useContext(GlobalContext);
+
+  console.log('data', data);
+  console.log('loading', loading);
+
+  useEffect(() => {
+    if (data) {
+      navigate.navigate(LOGIN);
+    }
+  }, [data]);
+
+  useFocusEffect(() => {
+    useCallback(() => {
+      if (data) {
+        clearAuthStateAction()(authDispatch);
+      }
+    }, [data]);
+  });
 
   const onChange = ({value, name}) => {
     setForm({...form, [name]: value});
@@ -73,8 +95,9 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      register(form)(authDispatch);
+      registerAction(form)(authDispatch);
     }
+    console.log('form', form);
   };
 
   return (
