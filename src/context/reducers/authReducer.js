@@ -1,13 +1,11 @@
-import React from 'react';
 import {
+  CLEAR_AUTH_STATE,
   REGISTER_ERRORS,
   REGISTER_LOADING,
   REGISTER_SUCCESS,
 } from '../action-types/authActionTypes';
 
-const authReducer = (state, action) => {
-  const {type, payload} = action;
-
+const authReducer = (state, {type, payload}) => {
   switch (type) {
     case REGISTER_LOADING:
       return {
@@ -28,6 +26,12 @@ const authReducer = (state, action) => {
         error: payload,
         loading: false,
       };
+
+    case CLEAR_AUTH_STATE:
+      return state;
+
+    default:
+      return state;
   }
 };
 
