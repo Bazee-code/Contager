@@ -11,8 +11,11 @@ const MessageComponent = ({
   primary,
   danger,
   success,
-  style,
+  retry,
+  retryFn,
+  onDismiss,
 }) => {
+  const [dismiss, setDismiss] = useState(false);
   const getBgColor = () => {
     if (primary) {
       return colors.primary;
@@ -29,18 +32,47 @@ const MessageComponent = ({
   };
 
   return (
-    <TouchableOpacity style={[styles.wrapper, {backgroundColor: getBgColor()}]}>
-      <View style={[styles.loaderSection]}>
-        {message && (
-          <Text
-            style={{
-              color: '#FFF',
-            }}>
-            {message}
-          </Text>
-        )}
-      </View>
-    </TouchableOpacity>
+    <>
+      {dismiss ? null : (
+        <TouchableOpacity
+          style={[styles.wrapper, {backgroundColor: getBgColor()}]}>
+          <View style={[styles.loaderSection]}>
+            {message && (
+              <Text
+                style={{
+                  color: '#FFF',
+                }}>
+                {message}
+              </Text>
+            )}
+            {retry && (
+              <TouchableOpacity onPress={retryFn}>
+                <Text
+                  style={{
+                    color: '#FFF',
+                  }}>
+                  Retry
+                </Text>
+              </TouchableOpacity>
+            )}
+            {typeof onDismiss === 'function' && (
+              <TouchableOpacity
+                onPress={() => {
+                  setDismiss(true);
+                  onDismiss();
+                }}>
+                <Text
+                  style={{
+                    color: '#FFF',
+                  }}>
+                  X
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 
