@@ -20,8 +20,8 @@ const loginAction =
       })
       .then(res => res.data)
       .then(data => {
-        AsyncStorage.setItem('token', res.data.token);
-        AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+        AsyncStorage.setItem('token', data.token);
+        AsyncStorage.setItem('user', JSON.stringify(data.user));
         dispatch({
           type: LOGIN_SUCCESS,
           payload: data,
