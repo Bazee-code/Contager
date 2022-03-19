@@ -1,5 +1,6 @@
 import {
   CLEAR_AUTH_STATE,
+  LOGIN_START,
   REGISTER_ERRORS,
   REGISTER_LOADING,
   REGISTER_SUCCESS,
@@ -27,8 +28,33 @@ const authReducer = (state, {type, payload}) => {
         loading: false,
       };
 
+    case LOGIN_START:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        data: payload,
+        loading: false,
+      };
+
+    case LOGIN_ERRORS:
+      return {
+        ...state,
+        errors: payload,
+        loading: false,
+      };
+
     case CLEAR_AUTH_STATE:
-      return state;
+      return {
+        ...state,
+        loading: false,
+        data: null,
+        error: null,
+      };
 
     default:
       return state;
