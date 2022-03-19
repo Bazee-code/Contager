@@ -6,13 +6,17 @@ import CustomButton from '../../../components/common/custom-button';
 import styles from './styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import MessageComponent from '../../common/message';
+import {REGISTER} from '../../../constants/routeNames';
 
-const LoginForm = ({form, errors, onChange, onSubmit}) => {
+const LoginForm = ({form, errors, onChange, onSubmit, error, loading}) => {
   const navigate = useNavigation();
 
   const handleRegister = () => {
-    navigate.navigate('Register');
+    navigate.navigate(REGISTER);
   };
+
+  console.log('error', error);
 
   return (
     <Container>
@@ -25,6 +29,24 @@ const LoginForm = ({form, errors, onChange, onSubmit}) => {
         <Text style={styles.loginHeaderSubTitle}>Please login here</Text>
       </View>
       <View style={styles.formSection}>
+        {/* <MessageComponent
+          retry
+          retryFn={() => {
+            console.log('retry triggered');
+          }}
+          onDismiss={() => {}}
+          primary
+          message="Invalid credentials"
+        />
+        <MessageComponent
+          danger
+          retry
+          retryFn={() => {
+            console.log('retry triggered');
+          }}
+          onDismiss={() => {}}
+          message="Invalid credentials"
+        /> */}
         <Input
           label="Username"
           placeholder="Enter Username"
@@ -42,7 +64,7 @@ const LoginForm = ({form, errors, onChange, onSubmit}) => {
           onChangeText={value => {
             onChange({name: 'password', value});
           }}
-          icon={<Text>HIDE</Text>}
+          icon={<Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>}
           iconPosition="right"
           error={errors.password}
         />
