@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import LoginForm from '../../components/forms/login';
+import {GlobalContext} from '../../context/Provider';
 
 const Login = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  console.log('context', GlobalContext);
+
+  const {
+    authState: {data, error, loading},
+  } = useContext(GlobalContext);
+  console.log('data', data);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -47,6 +54,8 @@ const Login = () => {
       errors={errors}
       onChange={onChange}
       onSubmit={onSubmit}
+      error={error}
+      loading={loading}
     />
   );
 };
