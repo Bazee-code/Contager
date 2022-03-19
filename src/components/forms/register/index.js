@@ -5,6 +5,8 @@ import Input from '../../../components/common/input';
 import CustomButton from '../../../components/common/custom-button';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
+import MessageComponent from '../../common/message';
+import {LOGIN} from '../../../constants/routeNames';
 
 const RegisterForm = ({
   form,
@@ -19,7 +21,7 @@ const RegisterForm = ({
   const navigate = useNavigation();
 
   const handleLogin = () => {
-    navigate.navigate('Login');
+    navigate.navigate(LOGIN);
   };
 
   return (
@@ -33,7 +35,18 @@ const RegisterForm = ({
           <Text style={styles.loginHeaderTitle}>Welcome to Contager</Text>
           <Text style={styles.loginHeaderSubTitle}>Create a free account </Text>
         </View>
-        {error && <Text>{error.error}</Text>}
+        {error?.error && (
+          <MessageComponent
+            retry
+            danger
+            retryFn={() => {
+              console.log('retry triggered');
+            }}
+            onDismiss={() => {}}
+            primary
+            message={error?.error}
+          />
+        )}
         <View style={styles.formSection}>
           <Input
             label="Username"
