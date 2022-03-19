@@ -40,7 +40,7 @@ const registerAction =
         });
       })
       .catch(e => {
-        console.log('e', e);
+        // console.log('e', e);
         dispatch({
           type: REGISTER_ERRORS,
           payload: e.response
