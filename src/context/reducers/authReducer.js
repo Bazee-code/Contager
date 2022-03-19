@@ -38,6 +38,7 @@ const authReducer = (state, {type, payload}) => {
       return {
         ...state,
         data: payload,
+        isLoggedIn: true,
         loading: false,
       };
 
