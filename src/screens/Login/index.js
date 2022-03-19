@@ -1,16 +1,16 @@
 import React, {useState, useContext} from 'react';
 import LoginForm from '../../components/forms/login';
+import loginAction from '../../context/actions/auth-actions/loginAction';
 import {GlobalContext} from '../../context/Provider';
 
 const Login = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  console.log('context', GlobalContext);
 
   const {
+    authDispatch,
     authState: {data, error, loading},
   } = useContext(GlobalContext);
-  console.log('data', data);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -19,13 +19,17 @@ const Login = () => {
       if (name === 'password') {
         if (value.length < 6) {
           setErrors(prev => {
-            return {...prev, [name]: 'A minimum of 6 characters is required'};
+            return {...prev, [name]: 'This field needs min 6 characters'};
           });
         } else {
           setErrors(prev => {
             return {...prev, [name]: null};
           });
         }
+      } else {
+        setErrors(prev => {
+          return {...prev, [name]: null};
+        });
       }
     } else {
       setErrors(prev => {
@@ -45,6 +49,15 @@ const Login = () => {
       setErrors(prev => {
         return {...prev, password: 'Password is required'};
       });
+    }
+
+    if (
+      Object.keys(form).length === 2 &&
+      Object.keys(form).every(item => item.trim().length > 0) &&
+      Object.keys(errors).every(item => !item)
+    ) {
+      // dispatch login action here
+      loginAction(form)(authDispatch);
     }
   };
 
