@@ -11,9 +11,14 @@ import {REGISTER} from '../../../constants/routeNames';
 
 const LoginForm = ({onChange, onSubmit, error, loading}) => {
   const navigate = useNavigation();
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   const handleRegister = () => {
     navigate.navigate(REGISTER);
+  };
+
+  const showPassword = () => {
+    setIsSecureEntry(!isSecureEntry);
   };
 
   return (
@@ -46,11 +51,15 @@ const LoginForm = ({onChange, onSubmit, error, loading}) => {
         <Input
           label="Password"
           placeholder="Enter password"
-          secureTextEntry={true}
+          secureTextEntry={isSecureEntry}
           onChangeText={value => {
             onChange({name: 'password', value});
           }}
-          icon={<Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>}
+          icon={
+            <TouchableOpacity onPress={showPassword}>
+              <Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>
+            </TouchableOpacity>
+          }
           iconPosition="right"
         />
 
