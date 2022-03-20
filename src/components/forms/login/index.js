@@ -10,9 +10,10 @@ import MessageComponent from '../../common/message';
 import {REGISTER} from '../../../constants/routeNames';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const LoginForm = ({onChange, onSubmit, error, loading}) => {
+const LoginForm = ({onChange, onSubmit, error, loading, form, params}) => {
   const navigate = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
+  console.log('form', form);
 
   const handleRegister = () => {
     navigate.navigate(REGISTER);
@@ -33,6 +34,13 @@ const LoginForm = ({onChange, onSubmit, error, loading}) => {
         <Text style={styles.loginHeaderSubTitle}>Please login here</Text>
       </View>
       <View style={styles.formSection}>
+        {params?.data && (
+          <MessageComponent
+            success
+            onDismiss={() => {}}
+            message={`Account created successfully!`}
+          />
+        )}
         {error && (
           <MessageComponent
             danger
@@ -46,6 +54,7 @@ const LoginForm = ({onChange, onSubmit, error, loading}) => {
           onChangeText={value => {
             onChange({name: 'userName', value});
           }}
+          value={form.userName || null}
           iconPosition="right"
         />
 
@@ -53,6 +62,7 @@ const LoginForm = ({onChange, onSubmit, error, loading}) => {
           label="Password"
           placeholder="Enter password"
           secureTextEntry={isSecureEntry}
+          value={form.password || null}
           onChangeText={value => {
             onChange({name: 'password', value});
           }}
