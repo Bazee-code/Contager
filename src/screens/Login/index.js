@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import LoginForm from '../../components/forms/login';
 import loginAction from '../../context/actions/auth-actions/loginAction';
 import {GlobalContext} from '../../context/Provider';
-import NetworkLogger from 'react-native-network-logger';
+// import NetworkLogger from 'react-native-network-logger';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const Login = () => {
@@ -18,7 +18,6 @@ const Login = () => {
   };
 
   const onSubmit = () => {
-    console.log('form', form);
     if (form.userName && form.password) {
       loginAction(form)(authDispatch);
     }
@@ -33,7 +32,7 @@ const Login = () => {
         error={error}
         loading={loading}
       />
-      <NetworkLogger />
+      {/* <NetworkLogger /> */}
     </ScrollView>
   );
 };
