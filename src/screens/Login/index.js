@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import LoginForm from '../../components/forms/login';
 import loginAction from '../../context/actions/auth-actions/loginAction';
 import {GlobalContext} from '../../context/Provider';
@@ -30,7 +30,7 @@ const Login = () => {
     if (params?.data) {
       setForm({
         ...form,
-        username: params.data.username,
+        userName: params.data.username,
         password: params.data.password,
       });
     }
@@ -40,11 +40,11 @@ const Login = () => {
     <ScrollView>
       <LoginForm
         form={form}
+        params={params}
         onChange={onChange}
         onSubmit={onSubmit}
         error={error}
         loading={loading}
-        params={params}
       />
       {/* <NetworkLogger /> */}
     </ScrollView>
