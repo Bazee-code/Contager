@@ -18,10 +18,16 @@ const RegisterForm = ({
   error,
 }) => {
   const [value, onChangeText] = useState('');
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
+
   const navigate = useNavigation();
 
   const handleLogin = () => {
     navigate.navigate(LOGIN);
+  };
+
+  const showPassword = () => {
+    setIsSecureEntry(!isSecureEntry);
   };
 
   return (
@@ -91,12 +97,14 @@ const RegisterForm = ({
           <Input
             label="Password"
             placeholder="Enter Password"
-            secureTextEntry={true}
+            secureTextEntry={isSecureEntry}
             onChangeText={value => {
               onChange({name: 'password', value});
             }}
             icon={
-              <Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>
+              <TouchableOpacity onPress={showPassword}>
+                <Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>
+              </TouchableOpacity>
             }
             iconPosition="right"
             error={errors.password || error?.password?.[0]}
