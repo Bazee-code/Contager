@@ -1,9 +1,8 @@
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import React, {useState} from 'react';
-
+import {View, Text, ActivityIndicator} from 'react-native';
+import React from 'react';
 import styles from './styles';
 import colors from '../../../assets/theme/colors';
-import {color} from 'react-native-reanimated';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CustomButton = ({
   title,
@@ -36,11 +35,6 @@ const CustomButton = ({
       onPress={onPress}
       style={[styles.wrapper, {backgroundColor: getBgColor()}, style]}>
       <View style={[styles.loaderSection]}>
-        {loading && (
-          <ActivityIndicator
-            color={primary ? colors.secondary : colors.primary}
-          />
-        )}
         {title && (
           <Text
             style={{
@@ -50,6 +44,7 @@ const CustomButton = ({
             {loading ? 'Please wait...' : title}
           </Text>
         )}
+        {loading && <ActivityIndicator color={primary ? '#FFF' : '#000'} />}
       </View>
     </TouchableOpacity>
   );
