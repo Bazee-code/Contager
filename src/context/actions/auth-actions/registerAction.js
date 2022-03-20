@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 import {
   CLEAR_AUTH_STATE,
