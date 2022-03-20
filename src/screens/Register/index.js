@@ -1,4 +1,3 @@
-import {View, Text} from 'react-native';
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import RegisterForm from '../../components/forms/register';
 import {GlobalContext} from '../../context/Provider';
@@ -19,22 +18,22 @@ const Register = () => {
     authState: {loading, error, data},
   } = useContext(GlobalContext);
 
-  console.log('data', data);
-  console.log('loading', loading);
-
   useEffect(() => {
     if (data) {
       navigate.navigate(LOGIN);
     }
   }, [data]);
 
-  useFocusEffect(() => {
+  // reset form
+  useFocusEffect(
     useCallback(() => {
-      if (data) {
-        clearAuthStateAction()(authDispatch);
-      }
-    }, [data]);
-  });
+      return () => {
+        if (data || error) {
+          clearAuthStateAction()(authDispatch);
+        }
+      };
+    }, [data, error]),
+  );
 
   const onChange = ({value, name}) => {
     setForm({...form, [name]: value});
@@ -97,7 +96,6 @@ const Register = () => {
     ) {
       registerAction(form)(authDispatch);
     }
-    console.log('form', form);
   };
 
   return (
