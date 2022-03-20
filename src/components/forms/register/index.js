@@ -7,6 +7,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import MessageComponent from '../../common/message';
 import {LOGIN} from '../../../constants/routeNames';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const RegisterForm = ({
   form,
@@ -103,7 +104,18 @@ const RegisterForm = ({
             }}
             icon={
               <TouchableOpacity onPress={showPassword}>
-                <Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>
+                {isSecureEntry ? (
+                  <Entypo
+                    name="eye-with-line"
+                    size={28}
+                    color="#000"
+                    style={{paddingRight: 5}}
+                  />
+                ) : (
+                  <Text style={{fontWeight: 'bold', paddingRight: 5}}>
+                    Hide
+                  </Text>
+                )}
               </TouchableOpacity>
             }
             iconPosition="right"
