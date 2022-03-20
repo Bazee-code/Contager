@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, ActivityIndicator} from 'react-native';
 import React, {useState} from 'react';
 import Container from '../../../components/common/container';
 import Input from '../../../components/common/input';
@@ -9,14 +9,12 @@ import {useNavigation} from '@react-navigation/native';
 import MessageComponent from '../../common/message';
 import {REGISTER} from '../../../constants/routeNames';
 
-const LoginForm = ({form, errors, onChange, onSubmit, error, loading}) => {
+const LoginForm = ({onChange, onSubmit, error, loading}) => {
   const navigate = useNavigation();
 
   const handleRegister = () => {
     navigate.navigate(REGISTER);
   };
-
-  console.log('error', error);
 
   return (
     <Container>
@@ -29,24 +27,13 @@ const LoginForm = ({form, errors, onChange, onSubmit, error, loading}) => {
         <Text style={styles.loginHeaderSubTitle}>Please login here</Text>
       </View>
       <View style={styles.formSection}>
-        {/* <MessageComponent
-          retry
-          retryFn={() => {
-            console.log('retry triggered');
-          }}
-          onDismiss={() => {}}
-          primary
-          message="Invalid credentials"
-        />
-        <MessageComponent
-          danger
-          retry
-          retryFn={() => {
-            console.log('retry triggered');
-          }}
-          onDismiss={() => {}}
-          message="Invalid credentials"
-        /> */}
+        {error && (
+          <MessageComponent
+            danger
+            onDismiss={() => {}}
+            message={error?.detail}
+          />
+        )}
         <Input
           label="Username"
           placeholder="Enter Username"
@@ -54,7 +41,6 @@ const LoginForm = ({form, errors, onChange, onSubmit, error, loading}) => {
             onChange({name: 'userName', value});
           }}
           iconPosition="right"
-          error={errors.userName}
         />
 
         <Input
@@ -66,10 +52,16 @@ const LoginForm = ({form, errors, onChange, onSubmit, error, loading}) => {
           }}
           icon={<Text style={{fontWeight: 'bold', paddingRight: 5}}>Show</Text>}
           iconPosition="right"
-          error={errors.password}
         />
 
-        <CustomButton title="Login" primary onPress={onSubmit} />
+        <CustomButton
+          title="Login"
+          loading={loading}
+          disabled={loading}
+          primary
+          onPress={onSubmit}
+        />
+        {loading && <ActivityIndicator color="#FFF" />}
       </View>
       <View style={styles.infoSection}>
         <Text style={styles.infoText}>Don't have an account?</Text>
