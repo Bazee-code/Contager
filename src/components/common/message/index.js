@@ -2,7 +2,6 @@ import {View, Text, ActivityIndicator} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles';
 import colors from '../../../assets/theme/colors';
-import {color} from 'react-native-reanimated';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const MessageComponent = ({
