@@ -18,12 +18,6 @@ const Register = () => {
     authState: {loading, error, data},
   } = useContext(GlobalContext);
 
-  useEffect(() => {
-    if (data) {
-      navigate.navigate(LOGIN);
-    }
-  }, [data]);
-
   // reset form
   useFocusEffect(
     useCallback(() => {
@@ -94,7 +88,9 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      registerAction(form)(authDispatch);
+      registerAction(form)(authDispatch)(response => {
+        navigate.navigate(LOGIN, {data: response});
+      });
     }
   };
 
