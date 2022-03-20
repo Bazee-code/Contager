@@ -13,7 +13,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 const LoginForm = ({onChange, onSubmit, error, loading, form, params}) => {
   const navigate = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
-  console.log('form', form);
 
   const handleRegister = () => {
     navigate.navigate(REGISTER);
