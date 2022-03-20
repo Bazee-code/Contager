@@ -4,14 +4,17 @@ import loginAction from '../../context/actions/auth-actions/loginAction';
 import {GlobalContext} from '../../context/Provider';
 // import NetworkLogger from 'react-native-network-logger';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useRoute} from '@react-navigation/native';
 
 const Login = () => {
   const [form, setForm] = useState({});
 
   const {
     authDispatch,
-    authState: {data, error, loading},
+    authState: {error, loading},
   } = useContext(GlobalContext);
+
+  const {params} = useRoute();
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -23,6 +26,16 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (params?.data) {
+      setForm({
+        ...form,
+        username: params.data.username,
+        password: params.data.password,
+      });
+    }
+  }, [params]);
+
   return (
     <ScrollView>
       <LoginForm
@@ -31,6 +44,7 @@ const Login = () => {
         onSubmit={onSubmit}
         error={error}
         loading={loading}
+        params={params}
       />
       {/* <NetworkLogger /> */}
     </ScrollView>
