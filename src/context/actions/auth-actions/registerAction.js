@@ -21,7 +21,8 @@ const registerAction =
     firstName: first_name,
     lastName: last_name,
   }) =>
-  dispatch => {
+  dispatch =>
+  onSuccess => {
     dispatch({
       type: REGISTER_LOADING,
     });
@@ -39,9 +40,9 @@ const registerAction =
           type: REGISTER_SUCCESS,
           payload: data,
         });
+        onSuccess(data);
       })
       .catch(e => {
-        // console.log('e', e);
         dispatch({
           type: REGISTER_ERRORS,
           payload: e.response
