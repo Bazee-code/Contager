@@ -4,7 +4,8 @@ import {
   GET_CONTACTS_SUCCESS,
 } from '../action-types/contactsActionTypes';
 
-const contactsReducer = (state, {type, action}) => {
+const contactsReducer = (state, {type, payload}) => {
+  console.log('state', state);
   switch (type) {
     case GET_CONTACTS_START:
       return {
