@@ -10,7 +10,7 @@ const getContactAction = () => dispatch => {
   });
 
   axiosInstance
-    .get(``)
+    .get(`/contacts`)
     .then(res => res.data)
     .then(data => {
       dispatch({
